@@ -1,4 +1,5 @@
-﻿using Academic.Infrastructure.Data;
+﻿using Academic.Application.Courses.Handlers;
+using Academic.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +10,7 @@ namespace Academic.IoC
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateCourseCommandHandler)));
             return services;
         }
 

@@ -7,7 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
     <ProjectReference Include="..\Academic.Domain\Academic.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Departaments\Commands\" />
+    <Folder Include="Departaments\Handlers\" />
+    <Folder Include="Departaments\Queries\" />
+    <Folder Include="Programs\Commands\" />
+    <Folder Include="Programs\Handlers\" />
+    <Folder Include="Programs\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
 
 </Project>

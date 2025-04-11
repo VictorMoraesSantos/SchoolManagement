@@ -15,11 +15,12 @@ namespace Academic.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Course?> GetById(int id)
+        public async Task<Course> GetById(int id, CancellationToken cancellationToken = default)
         {
             Course course = await _context.Courses
                 .AsNoTracking()
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .Where(c => c.IsDeleted != true)
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
             return course;
         }
@@ -28,6 +29,7 @@ namespace Academic.Infrastructure.Repositories
         {
             Course course = await _context.Courses
                 .AsNoTracking()
+                .Where(c => c.IsDeleted != true)
                 .FirstOrDefaultAsync(c => c.Code == code, cancellationToken);
 
             return course;
@@ -37,8 +39,8 @@ namespace Academic.Infrastructure.Repositories
         {
             IEnumerable<Course> courses = await _context.Courses
                 .AsNoTracking()
-                .Where(c => c.Name.Contains(name))
-                .ToListAsync();
+                .Where(c => c.IsDeleted != true && c.Name.Contains(name))
+                .ToListAsync(cancellationToken);
 
             return courses;
         }
@@ -47,8 +49,8 @@ namespace Academic.Infrastructure.Repositories
         {
             IEnumerable<Course> courses = await _context.Courses
                 .AsNoTracking()
-                .Where(c => c.Credits == credits)
-                .ToListAsync();
+                .Where(c => c.IsDeleted != true && c.Credits == credits)
+                .ToListAsync(cancellationToken);
 
             return courses;
         }
@@ -57,8 +59,8 @@ namespace Academic.Infrastructure.Repositories
         {
             IEnumerable<Course> courses = await _context.Courses
                 .AsNoTracking()
-                .Where(c => c.TeacherId == teacherId)
-                .ToListAsync();
+                .Where(c => c.IsDeleted != true && c.TeacherId == teacherId)
+                .ToListAsync(cancellationToken);
 
             return courses;
         }
@@ -67,47 +69,55 @@ namespace Academic.Infrastructure.Repositories
         {
             IEnumerable<Course> courses = await _context.Courses
                 .AsNoTracking()
-                .Where(c => c.StudentsId.Contains(studentId))
-                .ToListAsync();
+                .Where(c => c.IsDeleted != true && c.StudentsId.Contains(studentId))
+                .ToListAsync(cancellationToken);
 
             return courses;
         }
 
-        public async Task<IReadOnlyList<Course>> GetAll()
+        public async Task<IReadOnlyList<Course>> GetAll(CancellationToken cancellationToken = default)
         {
             IReadOnlyList<Course> courses = await _context.Courses
                 .AsNoTracking()
-                .ToListAsync();
+                .Where(c => c.IsDeleted != true)
+                .ToListAsync(cancellationToken);
 
             return courses;
         }
 
-        public Task<IReadOnlyList<Course>> Find(Expression<Func<Course, bool>> predicate)
+        public async Task<IReadOnlyList<Course>> Find(Expression<Func<Course, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            IReadOnlyList<Course> courses = await _context.Courses
+                .AsNoTracking()
+                .Where(c => c.IsDeleted != true)
+                .Where(predicate)
+                .ToListAsync(cancellationToken);
+
+            return courses;
         }
 
-        // CREATE methods
-        public Task Create(Course entity)
+        public async Task Create(Course entity, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            _context.Courses.Entry(entity).State = EntityState.Added;
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public Task CreateRange(IEnumerable<Course> entities)
+        public async Task CreateRange(IEnumerable<Course> entities, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            await _context.Courses.AddRangeAsync(entities);
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        // UPDATE method
-        public void Update(Course entity)
+        public async Task Update(Course entity, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            _context.Courses.Entry(entity).State = EntityState.Modified;
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        // DELETE method
-        public void Delete(Course entity)
+        public async Task Delete(Course entity, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            _context.Courses.Entry(entity).State = EntityState.Deleted;
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

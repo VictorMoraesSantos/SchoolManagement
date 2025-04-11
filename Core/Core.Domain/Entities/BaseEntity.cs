@@ -12,7 +12,7 @@ namespace Core.Domain.Entities
         IReadOnlyCollection<DomainEvent> DomainEvents { get; }
 
         void MarkAsUpdated();
-        void MarkDeleted();
+        void MarkAsDeleted();
         void AddDomainEvent(DomainEvent domainEvent);
         void ClearDomainEvents();
     }
@@ -32,7 +32,7 @@ namespace Core.Domain.Entities
             UpdatedAt = DateTime.Now;
         }
 
-        public void MarkDeleted()
+        public void MarkAsDeleted()
         {
             IsDeleted = true;
             MarkAsUpdated();
