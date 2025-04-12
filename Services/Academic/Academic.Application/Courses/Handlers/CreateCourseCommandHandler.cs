@@ -19,7 +19,8 @@ namespace Academic.Application.Courses.Handlers
 
         public async Task<CourseResponse> Handle(CreateCourseCommand command, CancellationToken cancellationToken)
         {
-            if (await _courseRepository.GetByCode(command.Code, cancellationToken) != null)
+            Course? courseExists = await _courseRepository.GetByCode(command.Code, cancellationToken);
+            if (courseExists != null)
                 throw new CourseAlreadyExistsException(command.Code, $"Já existe um curso com o código '{command.Code}'.");
 
             Course course = new Course(command.Code, command.Name, command.Description, command.Credits, command.TeacherId);

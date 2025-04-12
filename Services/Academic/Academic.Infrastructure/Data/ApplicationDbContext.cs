@@ -17,9 +17,9 @@ namespace Academic.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
 
             // Índice único no código do curso
-            modelBuilder.Entity<Course>()
-                .HasIndex(c => c.Code)
-                .IsUnique();
+            //modelBuilder.Entity<Course>()
+            //    .HasIndex(c => c.Code)
+            //    .IsUnique();
 
             // Outras configurações podem ser adicionadas aqui
         }

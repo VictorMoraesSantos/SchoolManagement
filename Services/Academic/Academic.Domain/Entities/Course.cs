@@ -19,14 +19,14 @@ namespace Academic.Domain.Entities
 
         public Course(string code, string name, string description, int credits, int teacherId)
         {
-            SetCourseCode(code);
+            SetCode(code);
             SetName(name);
             SetDescription(description);
             SetCredits(credits);
             AssignTeacher(teacherId);
         }
 
-        public void SetCourseCode(string code)
+        public void SetCode(string code)
         {
             if (string.IsNullOrWhiteSpace(code))
                 throw new DomainException("Course code cannot be empty.");

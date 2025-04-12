@@ -28,7 +28,7 @@ namespace Academic.Infrastructure.Repositories
         {
             Course? course = await _context.Courses
                 .AsNoTracking()
-                .FirstOrDefaultAsync(c => c.IsDeleted != true && c.Code == code, cancellationToken);
+                .FirstOrDefaultAsync(c => c.IsDeleted != true && c.Code == code.Trim().ToUpper(), cancellationToken);
 
             return course;
         }
@@ -37,7 +37,7 @@ namespace Academic.Infrastructure.Repositories
         {
             IEnumerable<Course> courses = await _context.Courses
                 .AsNoTracking()
-                .Where(c => c.IsDeleted != true && c.Name.Contains(name))
+                .Where(c => c.IsDeleted != true && c.Name.Contains(name.Trim().ToUpper()))
                 .ToListAsync(cancellationToken);
 
             return courses;

@@ -24,7 +24,7 @@ namespace Academic.Application.Courses.Handlers
             if (course == null)
                 throw new DomainException($"Course with ID {command.Id} not found.");
 
-            course.SetCourseCode(command.Code);
+            course.SetCode(command.Code);
             course.SetName(command.Name);
             course.SetDescription(command.Description);
             course.SetCredits(command.Credits);
