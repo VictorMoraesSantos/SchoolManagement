@@ -15,22 +15,20 @@ namespace Academic.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Course> GetById(int id, CancellationToken cancellationToken = default)
+        public async Task<Course?> GetById(int id, CancellationToken cancellationToken = default)
         {
-            Course course = await _context.Courses
+            Course? course = await _context.Courses
                 .AsNoTracking()
-                .Where(c => c.IsDeleted != true)
-                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+                .FirstOrDefaultAsync(c => c.IsDeleted != true && c.Id == id, cancellationToken);
 
             return course;
         }
 
         public async Task<Course?> GetByCode(string code, CancellationToken cancellationToken = default)
         {
-            Course course = await _context.Courses
+            Course? course = await _context.Courses
                 .AsNoTracking()
-                .Where(c => c.IsDeleted != true)
-                .FirstOrDefaultAsync(c => c.Code == code, cancellationToken);
+                .FirstOrDefaultAsync(c => c.IsDeleted != true && c.Code == code, cancellationToken);
 
             return course;
         }

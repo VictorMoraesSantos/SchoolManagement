@@ -26,14 +26,6 @@ namespace Academic.Domain.Entities
             AssignTeacher(teacherId);
         }
 
-        public Course(string code, string name, string description, int credits)
-        {
-            SetCourseCode(code);
-            SetName(name);
-            SetDescription(description);
-            SetCredits(credits);
-        }
-
         public void SetCourseCode(string code)
         {
             if (string.IsNullOrWhiteSpace(code))
@@ -52,6 +44,9 @@ namespace Academic.Domain.Entities
 
         public void SetDescription(string description)
         {
+            if (string.IsNullOrWhiteSpace(description))
+                throw new DomainException("Course description cannot be empty.");
+
             Description = description?.ToUpper();
         }
 

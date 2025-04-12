@@ -1,5 +1,7 @@
 ﻿using Academic.Application.Courses.Handlers;
+using Academic.Domain.Repositories;
 using Academic.Infrastructure.Data;
+using Academic.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +22,8 @@ namespace Academic.IoC
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));
+
+            services.AddScoped<ICourseRepository, CourseRepository>();
 
             return services;
         }

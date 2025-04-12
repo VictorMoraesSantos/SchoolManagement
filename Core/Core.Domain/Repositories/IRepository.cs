@@ -5,7 +5,7 @@ namespace Core.Domain.Repositories
 {
     public interface IRepository<T, TId> where T : IBaseEntity<TId>
     {
-        Task<T> GetById(TId id, CancellationToken cancellationToken = default);
+        Task<T?> GetById(TId id, CancellationToken cancellationToken = default);
         Task<IReadOnlyList<T>> GetAll(CancellationToken cancellationToken = default);
         Task<IReadOnlyList<T>> Find(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
         Task Create(T entity, CancellationToken cancellationToken = default);

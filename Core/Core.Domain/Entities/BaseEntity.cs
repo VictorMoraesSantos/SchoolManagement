@@ -20,7 +20,7 @@ namespace Core.Domain.Entities
     public abstract class BaseEntity<T> : IBaseEntity<T>
     {
         public T Id { get; protected set; }
-        public DateTime CreatedAt { get; protected set; } = DateTime.Now;
+        public DateTime CreatedAt { get; protected set; } = DateTime.UtcNow;
         public DateTime? UpdatedAt { get; protected set; }
         public bool IsDeleted { get; protected set; }
 

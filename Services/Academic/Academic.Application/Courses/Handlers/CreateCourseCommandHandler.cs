@@ -1,4 +1,5 @@
 ﻿using Academic.Application.Courses.Commands;
+using Academic.Application.Exceptions;
 using Academic.Application.Mappers;
 using Academic.Application.Responses;
 using Academic.Domain.Entities;
@@ -18,6 +19,9 @@ namespace Academic.Application.Courses.Handlers
 
         public async Task<CourseResponse> Handle(CreateCourseCommand command, CancellationToken cancellationToken)
         {
+            if (await _courseRepository.GetByCode(command.Code, cancellationToken) != null)
+                throw new CourseAlreadyExistsException(command.Code, $"Já existe um curso com o código '{command.Code}'.");
+
             Course course = new Course(command.Code, command.Name, command.Description, command.Credits, command.TeacherId);
             await _courseRepository.Create(course, cancellationToken);
 
