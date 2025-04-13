@@ -1,4 +1,4 @@
-﻿using Academic.Application.Responses;
+﻿using Academic.Application.Responses.Course;
 using MediatR;
 
 namespace Academic.Application.Courses.Queries

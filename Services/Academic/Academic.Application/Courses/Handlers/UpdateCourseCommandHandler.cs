@@ -1,6 +1,6 @@
 ﻿using Academic.Application.Courses.Commands;
 using Academic.Application.Mappers;
-using Academic.Application.Responses;
+using Academic.Application.Responses.Course;
 using Academic.Domain.Entities;
 using Academic.Domain.Repositories;
 using Core.Domain.Exceptions;

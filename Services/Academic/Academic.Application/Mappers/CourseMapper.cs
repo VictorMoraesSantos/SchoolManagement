@@ -1,4 +1,4 @@
-﻿using Academic.Application.Responses;
+﻿using Academic.Application.Responses.Course;
 using Academic.Domain.Entities;
 
 namespace Academic.Application.Mappers
@@ -17,7 +17,22 @@ namespace Academic.Application.Mappers
                 course.Description,
                 course.Credits,
                 course.TeacherId,
-                DepartmentMapper.ToResponse(course.Department));
+                DepartmentMapper.ToSimpleResponse(course.Department));
+
+            return response;
+        }
+
+        public static CourseSimpleResponse ToSimpleResponse(this Course course)
+        {
+            CourseSimpleResponse response = new CourseSimpleResponse(
+                course.Id,
+                course.CreatedAt,
+                course.UpdatedAt,
+                course.Code,
+                course.Name,
+                course.Description,
+                course.Credits,
+                course.TeacherId);
 
             return response;
         }

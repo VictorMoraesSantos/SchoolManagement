@@ -1,4 +1,6 @@
-﻿namespace Academic.Application.Responses
+﻿using Academic.Application.Responses.Course;
+
+namespace Academic.Application.Responses.Department
 {
     public class DepartmentResponse
     {
@@ -8,10 +10,10 @@
         public bool IsDeleted { get; init; }
         public string Code { get; init; }
         public string Name { get; init; }
-        public IReadOnlyCollection<CourseResponse> Courses { get; init; }
+        public IReadOnlyCollection<CourseSimpleResponse> Courses { get; init; }
         public IReadOnlyCollection<int> TeachersId { get; init; }
 
-        public DepartmentResponse(int id, DateTime createdAt, DateTime? updatedAt, bool isDeleted, string code, string name, IReadOnlyCollection<CourseResponse> courses, IReadOnlyCollection<int> teachersId)
+        public DepartmentResponse(int id, DateTime createdAt, DateTime? updatedAt, bool isDeleted, string code, string name, IReadOnlyCollection<CourseSimpleResponse> courses, IReadOnlyCollection<int> teachersId)
         {
             Id = id;
             CreatedAt = createdAt;

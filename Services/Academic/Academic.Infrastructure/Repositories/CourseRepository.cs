@@ -19,6 +19,7 @@ namespace Academic.Infrastructure.Repositories
         {
             Course? course = await _context.Courses
                 .AsNoTracking()
+                .Include(c => c.Department)
                 .FirstOrDefaultAsync(c => c.IsDeleted != true && c.Id == id, cancellationToken);
 
             return course;
@@ -28,6 +29,7 @@ namespace Academic.Infrastructure.Repositories
         {
             Course? course = await _context.Courses
                 .AsNoTracking()
+                .Include(c => c.Department)
                 .FirstOrDefaultAsync(c => c.IsDeleted != true && c.Code == code.Trim().ToUpper(), cancellationToken);
 
             return course;
@@ -37,6 +39,7 @@ namespace Academic.Infrastructure.Repositories
         {
             IEnumerable<Course> courses = await _context.Courses
                 .AsNoTracking()
+                .Include(c => c.Department)
                 .Where(c => c.IsDeleted != true && c.Name.Contains(name.Trim().ToUpper()))
                 .ToListAsync(cancellationToken);
 
@@ -47,6 +50,7 @@ namespace Academic.Infrastructure.Repositories
         {
             IEnumerable<Course> courses = await _context.Courses
                 .AsNoTracking()
+                .Include(c => c.Department)
                 .Where(c => c.IsDeleted != true && c.Credits == credits)
                 .ToListAsync(cancellationToken);
 
@@ -57,6 +61,7 @@ namespace Academic.Infrastructure.Repositories
         {
             IEnumerable<Course> courses = await _context.Courses
                 .AsNoTracking()
+                .Include(c => c.Department)
                 .Where(c => c.IsDeleted != true && c.TeacherId == teacherId)
                 .ToListAsync(cancellationToken);
 
@@ -67,6 +72,7 @@ namespace Academic.Infrastructure.Repositories
         {
             IEnumerable<Course> courses = await _context.Courses
                 .AsNoTracking()
+                .Include(c => c.Department)
                 .Where(c => c.IsDeleted != true && c.StudentsId.Contains(studentId))
                 .ToListAsync(cancellationToken);
 
@@ -77,6 +83,7 @@ namespace Academic.Infrastructure.Repositories
         {
             IReadOnlyList<Course> courses = await _context.Courses
                 .AsNoTracking()
+                .Include(c => c.Department)
                 .Where(c => c.IsDeleted != true)
                 .ToListAsync(cancellationToken);
 
@@ -87,6 +94,7 @@ namespace Academic.Infrastructure.Repositories
         {
             IReadOnlyList<Course> courses = await _context.Courses
                 .AsNoTracking()
+                .Include(c => c.Department)
                 .Where(c => c.IsDeleted != true)
                 .Where(predicate)
                 .ToListAsync(cancellationToken);

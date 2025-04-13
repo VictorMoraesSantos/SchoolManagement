@@ -24,7 +24,7 @@ namespace Academic.IoC
                 options.UseNpgsql(connectionString));
 
             services.AddScoped<ICourseRepository, CourseRepository>();
-            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
             return services;
         }

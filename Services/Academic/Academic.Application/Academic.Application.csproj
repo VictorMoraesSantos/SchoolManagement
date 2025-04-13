@@ -12,9 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Departaments\Commands\" />
-    <Folder Include="Departaments\Handlers\" />
-    <Folder Include="Departaments\Queries\" />
     <Folder Include="Programs\Commands\" />
     <Folder Include="Programs\Handlers\" />
     <Folder Include="Programs\Queries\" />

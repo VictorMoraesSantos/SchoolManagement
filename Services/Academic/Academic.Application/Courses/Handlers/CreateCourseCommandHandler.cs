@@ -1,7 +1,7 @@
 ﻿using Academic.Application.Courses.Commands;
 using Academic.Application.Exceptions;
 using Academic.Application.Mappers;
-using Academic.Application.Responses;
+using Academic.Application.Responses.Course;
 using Academic.Domain.Entities;
 using Academic.Domain.Repositories;
 using MediatR;
@@ -13,9 +13,10 @@ namespace Academic.Application.Courses.Handlers
         private readonly IDepartmentRepository _departmentRepository;
         private readonly ICourseRepository _courseRepository;
 
-        public CreateCourseCommandHandler(ICourseRepository courseRepository)
+        public CreateCourseCommandHandler(ICourseRepository courseRepository, IDepartmentRepository departmentRepository)
         {
             _courseRepository = courseRepository;
+            _departmentRepository = departmentRepository;
         }
 
         public async Task<CourseResponse> Handle(CreateCourseCommand command, CancellationToken cancellationToken)

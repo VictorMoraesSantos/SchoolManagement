@@ -14,7 +14,12 @@ namespace BuildingBlocks.Results
 
         public static HttpResult Ok(object data) => new(data) { StatusCode = HttpStatusCode.OK };
         public static HttpResult Ok() => new() { StatusCode = HttpStatusCode.OK };
-
+        public static HttpResult Created(object data) => new(data) { StatusCode = HttpStatusCode.Created };
+        public static HttpResult Created() => new() { StatusCode = HttpStatusCode.Created };
+        public static HttpResult Updated(object data) => new(data) { StatusCode = HttpStatusCode.NoContent };
+        public static HttpResult Updated() => new() { StatusCode = HttpStatusCode.NoContent };
+        public static HttpResult Deleted(object data) => new(data) { StatusCode = HttpStatusCode.NoContent };
+        public static HttpResult Deleted() => new() { StatusCode = HttpStatusCode.NoContent };
         public static HttpResult BadRequest(params string[] errors) => new(HttpStatusCode.BadRequest, errors);
         public static HttpResult NotFound(params string[] errors) => new(HttpStatusCode.NotFound, errors);
         public static HttpResult Forbidden(params string[] errors) => new(HttpStatusCode.Forbidden, errors);
@@ -54,6 +59,9 @@ namespace BuildingBlocks.Results
         }
 
         public static HttpResult<T> Ok(T data) => new(data) { StatusCode = HttpStatusCode.OK };
+        public static HttpResult<T> Created(T data) => new(data) { StatusCode = HttpStatusCode.Created };
+        public static HttpResult<T> Updated(T data) => new(data) { StatusCode = HttpStatusCode.NoContent };
+        public static HttpResult<T> Deleted(T data) => new(data) { StatusCode = HttpStatusCode.NoContent };
         public static HttpResult<T> BadRequest(params string[] errors) => new(HttpStatusCode.BadRequest, errors);
         public static HttpResult<T> NotFound(params string[] errors) => new(HttpStatusCode.NotFound, errors);
         public static HttpResult<T> Forbidden(params string[] errors) => new(HttpStatusCode.Forbidden, errors);

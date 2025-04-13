@@ -37,13 +37,13 @@ namespace Academic.Infrastructure.Repositories
 
         public async Task<IEnumerable<Department?>> GetByName(string name, CancellationToken cancellationToken)
         {
-            IEnumerable<Department> departments = await _context.Departments
+            IEnumerable<Department>? department = await _context.Departments
                 .AsNoTracking()
                 .Include(d => d.Courses)
-                .Where(d => d.Name == name.Trim().ToUpper())
+                .Where(c => c.IsDeleted != true && c.Name.Contains(name.Trim().ToUpper()))
                 .ToListAsync(cancellationToken);
 
-            return departments;
+            return department;
         }
 
         public async Task<Department?> GetByTeacherId(int id, CancellationToken cancellationToken)

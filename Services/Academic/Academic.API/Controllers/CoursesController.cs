@@ -1,6 +1,6 @@
 ﻿using Academic.Application.Courses.Commands;
 using Academic.Application.Courses.Queries;
-using Academic.Application.Responses;
+using Academic.Application.Responses.Course;
 using BuildingBlocks.Results;
 using Core.API.Controllers;
 using MediatR;
@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Academic.API.Controllers
 {
-    public class CourseController : ApiController
+    public class CoursesController : ApiController
     {
         private readonly IMediator _mediator;
 
-        public CourseController(IMediator mediator)
+        public CoursesController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -77,7 +77,7 @@ namespace Academic.API.Controllers
         public async Task<ActionResult<HttpResult<CourseResponse>>> Create([FromBody] CreateCourseCommand command, CancellationToken cancellationToken)
         {
             CourseResponse result = await _mediator.Send(command, cancellationToken);
-            return HttpResult<CourseResponse>.Ok(result);
+            return HttpResult<CourseResponse>.Created(result);
         }
 
         [HttpPost("batch")]
@@ -88,7 +88,7 @@ namespace Academic.API.Controllers
                 CourseResponse _ = await _mediator.Send(command, cancellationToken);
             }
 
-            return HttpResult.Ok();
+            return HttpResult.Created();
         }
 
         [HttpPut("{id:int}")]

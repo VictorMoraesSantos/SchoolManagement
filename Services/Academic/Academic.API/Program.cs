@@ -1,4 +1,5 @@
 using Academic.IoC;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 

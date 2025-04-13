@@ -1,11 +1,11 @@
-﻿using Academic.Application.Responses;
+﻿using Academic.Application.Responses.Department;
 using Academic.Domain.Entities;
 
 namespace Academic.Application.Mappers
 {
     public static class DepartmentMapper
     {
-        public static DepartmentResponse ToResponse(Department department)
+        public static DepartmentResponse ToResponse(this Department department)
         {
             DepartmentResponse response = new DepartmentResponse(
                 department.Id,
@@ -14,7 +14,21 @@ namespace Academic.Application.Mappers
                 department.IsDeleted,
                 department.Code,
                 department.Name,
-                department.Courses.Select(c => c.ToResponse()).ToList(),
+                department.Courses.Select(c => c.ToSimpleResponse()).ToList(),
+                department.TeachersId);
+
+            return response;
+        }
+
+        public static DepartmentSimpleResponse ToSimpleResponse(this Department department)
+        {
+            DepartmentSimpleResponse response = new DepartmentSimpleResponse(
+                department.Id,
+                department.CreatedAt,
+                department.UpdatedAt,
+                department.IsDeleted,
+                department.Code,
+                department.Name,
                 department.TeachersId);
 
             return response;

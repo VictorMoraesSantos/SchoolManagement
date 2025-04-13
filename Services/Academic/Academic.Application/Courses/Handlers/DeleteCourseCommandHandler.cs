@@ -17,7 +17,7 @@ namespace Academic.Application.Courses.Handlers
 
         public async Task<bool> Handle(DeleteCourseCommand command, CancellationToken cancellationToken)
         {
-            Course course = await _courseRepository.GetById(command.Id, cancellationToken);
+            Course? course = await _courseRepository.GetById(command.Id, cancellationToken);
             if (course == null)
                 throw new DomainException($"Course with ID {command.Id} not found.");
 
