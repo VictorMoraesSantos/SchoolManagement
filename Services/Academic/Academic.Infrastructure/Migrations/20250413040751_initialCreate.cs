@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Academic.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,7 +58,7 @@ namespace Academic.Infrastructure.Migrations
                     Description = table.Column<string>(type: "text", nullable: false),
                     Credits = table.Column<int>(type: "integer", nullable: false),
                     TeacherId = table.Column<int>(type: "integer", nullable: false),
-                    DepartamentId = table.Column<int>(type: "integer", nullable: true),
+                    DepartmentId = table.Column<int>(type: "integer", nullable: false),
                     ProgramId = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -68,10 +68,11 @@ namespace Academic.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Courses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Courses_Departaments_DepartamentId",
-                        column: x => x.DepartamentId,
+                        name: "FK_Courses_Departaments_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "Departaments",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Courses_Programs_ProgramId",
                         column: x => x.ProgramId,
@@ -87,7 +88,7 @@ namespace Academic.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OccuredOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CourseId = table.Column<int>(type: "integer", nullable: true),
-                    DepartamentId = table.Column<int>(type: "integer", nullable: true),
+                    DepartmentId = table.Column<int>(type: "integer", nullable: true),
                     ProgramId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -99,8 +100,8 @@ namespace Academic.Infrastructure.Migrations
                         principalTable: "Courses",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_DomainEvent_Departaments_DepartamentId",
-                        column: x => x.DepartamentId,
+                        name: "FK_DomainEvent_Departaments_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "Departaments",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -111,9 +112,9 @@ namespace Academic.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_DepartamentId",
+                name: "IX_Courses_DepartmentId",
                 table: "Courses",
-                column: "DepartamentId");
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_ProgramId",
@@ -126,9 +127,9 @@ namespace Academic.Infrastructure.Migrations
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DomainEvent_DepartamentId",
+                name: "IX_DomainEvent_DepartmentId",
                 table: "DomainEvent",
-                column: "DepartamentId");
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DomainEvent_ProgramId",

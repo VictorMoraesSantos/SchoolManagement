@@ -11,8 +11,11 @@ namespace Academic.Application.Courses.Commands
         public string Description { get; init; }
         public int Credits { get; init; }
         public int TeacherId { get; init; }
+        public int DepartmentId { get; init; }
+        public int StudentId { get; init; }
 
-        public UpdateCourseCommand(int id, string code, string name, string description, int credits, int teacherId)
+
+        public UpdateCourseCommand(int id, string code, string name, string description, int credits, int teacherId, int departmentId, int studentId)
         {
             Id = id;
             Code = code;
@@ -20,6 +23,8 @@ namespace Academic.Application.Courses.Commands
             Description = description;
             Credits = credits;
             TeacherId = teacherId;
+            DepartmentId = departmentId;
+            StudentId = studentId;
         }
     }
 }

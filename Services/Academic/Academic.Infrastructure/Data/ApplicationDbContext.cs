@@ -9,7 +9,7 @@ namespace Academic.Infrastructure.Data
         { }
 
         public DbSet<Course> Courses { get; set; }
-        public DbSet<Departament> Departaments { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<Program> Programs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

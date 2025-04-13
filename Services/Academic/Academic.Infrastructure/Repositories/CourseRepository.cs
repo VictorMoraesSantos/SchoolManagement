@@ -102,7 +102,7 @@ namespace Academic.Infrastructure.Repositories
 
         public async Task CreateRange(IEnumerable<Course> entities, CancellationToken cancellationToken = default)
         {
-            await _context.Courses.AddRangeAsync(entities);
+            await _context.Courses.AddRangeAsync(entities, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
         }
 

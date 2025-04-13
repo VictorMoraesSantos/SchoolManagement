@@ -3,18 +3,19 @@ using Core.Domain.Exceptions;
 
 namespace Academic.Domain.Entities
 {
-    public class Departament : BaseEntity<int>
+    public class Department : BaseEntity<int>
     {
         public string Code { get; private set; }
         public string Name { get; private set; }
+
         public IReadOnlyCollection<Course> Courses => _courses.AsReadOnly();
         private readonly List<Course> _courses = new();
-        public IReadOnlyCollection<int> TeachersId => _teachersId.AsReadOnly(); 
+        public IReadOnlyCollection<int> TeachersId => _teachersId.AsReadOnly();
         private readonly List<int> _teachersId = new();
 
-        protected Departament() { } 
+        protected Department() { }
 
-        public Departament(string code, string name)
+        public Department(string code, string name)
         {
             SetCode(code);
             SetName(name);
@@ -60,7 +61,7 @@ namespace Academic.Domain.Entities
             if (course == null)
                 throw new DomainException("Course cannot be null.");
 
-            if (_courses.Any(c => c.Code == course.Code))
+            if (_courses.Any(c => c.Code == course.Code.Trim().ToUpper()))
                 throw new DomainException("A course with the same code is already assigned to this department.");
 
             _courses.Add(course);

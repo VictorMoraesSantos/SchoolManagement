@@ -19,8 +19,7 @@ namespace Academic.Application.Courses.Handlers
 
         public async Task<CourseResponse> Handle(UpdateCourseCommand command, CancellationToken cancellationToken)
         {
-            Course course = await _courseRepository.GetById(command.Id, cancellationToken);
-
+            Course? course = await _courseRepository.GetById(command.Id, cancellationToken);
             if (course == null)
                 throw new DomainException($"Course with ID {command.Id} not found.");
 
@@ -28,9 +27,8 @@ namespace Academic.Application.Courses.Handlers
             course.SetName(command.Name);
             course.SetDescription(command.Description);
             course.SetCredits(command.Credits);
-
-            if (command.TeacherId >= 0)
-                course.AssignTeacher(command.TeacherId);
+            course.AssignTeacher(command.TeacherId);
+            course.AddStudent(command.StudentId);
 
             course.MarkAsUpdated();
 

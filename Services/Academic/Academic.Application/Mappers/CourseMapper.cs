@@ -16,7 +16,8 @@ namespace Academic.Application.Mappers
                 course.Name,
                 course.Description,
                 course.Credits,
-                course.TeacherId);
+                course.TeacherId,
+                DepartmentMapper.ToResponse(course.Department));
 
             return response;
         }

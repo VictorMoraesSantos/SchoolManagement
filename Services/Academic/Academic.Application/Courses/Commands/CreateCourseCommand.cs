@@ -10,14 +10,17 @@ namespace Academic.Application.Courses.Commands
         public string Description { get; init; }
         public int Credits { get; init; }
         public int TeacherId { get; init; }
+        public int DepartmentId { get; init; }
 
-        public CreateCourseCommand(string code, string name, string description, int credits, int teacherId)
+
+        public CreateCourseCommand(string code, string name, string description, int credits, int teacherId, int departmentId)
         {
             Code = code;
             Name = name;
             Description = description;
             Credits = credits;
             TeacherId = teacherId;
+            DepartmentId = departmentId;
         }
     }
 }

@@ -11,19 +11,22 @@ namespace Academic.Domain.Entities
         public string Description { get; private set; }
         public int Credits { get; private set; }
         public int TeacherId { get; private set; }
-        public IReadOnlyCollection<int> StudentsId => _studentsId.AsReadOnly();
+        public int DepartmentId { get; private set; }
+        public virtual Department Department { get; private set; }
 
+        public IReadOnlyCollection<int> StudentsId => _studentsId.AsReadOnly();
         private readonly List<int> _studentsId = new();
 
         protected Course() { }
 
-        public Course(string code, string name, string description, int credits, int teacherId)
+        public Course(string code, string name, string description, int credits, int teacherId, Department department)
         {
             SetCode(code);
             SetName(name);
             SetDescription(description);
             SetCredits(credits);
             AssignTeacher(teacherId);
+            SetDepartment(department);
         }
 
         public void SetCode(string code)
@@ -83,6 +86,15 @@ namespace Academic.Domain.Entities
                 throw new DomainException("Student is not enrolled in the course.");
 
             _studentsId.Remove(studentId);
+        }
+
+        public void SetDepartment(Department department)
+        {
+            if (department == null)
+                throw new DomainException("Department cannot be null.");
+
+            Department = department;
+            DepartmentId = department.Id;
         }
     }
 }

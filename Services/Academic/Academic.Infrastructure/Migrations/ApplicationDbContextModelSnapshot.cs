@@ -40,7 +40,7 @@ namespace Academic.Infrastructure.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("DepartamentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
@@ -65,14 +65,14 @@ namespace Academic.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartamentId");
+                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("ProgramId");
 
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("Academic.Domain.Entities.Departament", b =>
+            modelBuilder.Entity("Academic.Domain.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -99,7 +99,7 @@ namespace Academic.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departaments");
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("Academic.Domain.Entities.Program", b =>
@@ -147,7 +147,7 @@ namespace Academic.Infrastructure.Migrations
                     b.Property<int?>("CourseId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("DepartamentId")
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("OccuredOn")
@@ -160,7 +160,7 @@ namespace Academic.Infrastructure.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("DepartamentId");
+                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("ProgramId");
 
@@ -169,13 +169,17 @@ namespace Academic.Infrastructure.Migrations
 
             modelBuilder.Entity("Academic.Domain.Entities.Course", b =>
                 {
-                    b.HasOne("Academic.Domain.Entities.Departament", null)
+                    b.HasOne("Academic.Domain.Entities.Department", "Department")
                         .WithMany("Courses")
-                        .HasForeignKey("DepartamentId");
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Academic.Domain.Entities.Program", null)
                         .WithMany("Courses")
                         .HasForeignKey("ProgramId");
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Core.Domain.Events.DomainEvent", b =>
@@ -184,9 +188,9 @@ namespace Academic.Infrastructure.Migrations
                         .WithMany("DomainEvents")
                         .HasForeignKey("CourseId");
 
-                    b.HasOne("Academic.Domain.Entities.Departament", null)
+                    b.HasOne("Academic.Domain.Entities.Department", null)
                         .WithMany("DomainEvents")
-                        .HasForeignKey("DepartamentId");
+                        .HasForeignKey("DepartmentId");
 
                     b.HasOne("Academic.Domain.Entities.Program", null)
                         .WithMany("DomainEvents")
@@ -198,7 +202,7 @@ namespace Academic.Infrastructure.Migrations
                     b.Navigation("DomainEvents");
                 });
 
-            modelBuilder.Entity("Academic.Domain.Entities.Departament", b =>
+            modelBuilder.Entity("Academic.Domain.Entities.Department", b =>
                 {
                     b.Navigation("Courses");
 

@@ -12,7 +12,7 @@ namespace Academic.IoC
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining(typeof(CreateCourseCommandHandler)));
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateCourseCommandHandler).Assembly));
             return services;
         }
 
@@ -23,6 +23,7 @@ namespace Academic.IoC
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));
 
+            services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<ICourseRepository, CourseRepository>();
 
             return services;
