@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Academic.API.Controllers
 {
-    public class CoursesController : ApiController
+    public class CoursesController : BaseController
     {
         private readonly IMediator _mediator;
 
@@ -92,10 +92,11 @@ namespace Academic.API.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<HttpResult<CourseResponse>>> Update(int id, [FromBody] UpdateCourseCommand command, CancellationToken cancellationToken)
+        public async Task<ActionResult<HttpResult<bool>>> Update(int id, [FromBody] UpdateCourseCommand command, CancellationToken cancellationToken)
         {
-            CourseResponse result = await _mediator.Send(command, cancellationToken);
-            return HttpResult<CourseResponse>.Ok(result);
+            UpdateCourseCommand updateCommand = new(id, command.Code, command.Name, command.Description, command.Credits, command.TeacherId);
+            bool result = await _mediator.Send(updateCommand, cancellationToken);
+            return HttpResult<bool>.Ok(result);
         }
 
         [HttpDelete("{id:int}")]

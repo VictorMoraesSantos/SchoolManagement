@@ -12,12 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Programs\Commands\" />
-    <Folder Include="Programs\Handlers\" />
-    <Folder Include="Programs\Queries\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
 

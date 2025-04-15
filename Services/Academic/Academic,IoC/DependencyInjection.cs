@@ -25,6 +25,7 @@ namespace Academic.IoC
 
             services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IProgramRepository, ProgramRepository>();
 
             return services;
         }

@@ -11,13 +11,13 @@ namespace Academic.Application.Mappers
                 course.Id,
                 course.CreatedAt,
                 course.UpdatedAt,
-                course.IsDeleted,
                 course.Code,
                 course.Name,
                 course.Description,
                 course.Credits,
                 course.TeacherId,
-                DepartmentMapper.ToSimpleResponse(course.Department));
+                course.Department != null ? DepartmentMapper.ToSimpleResponse(course.Department) : null,
+                course.Program != null ? ProgramMapper.ToSimpleResponse(course.Program) : null);
 
             return response;
         }

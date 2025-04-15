@@ -29,7 +29,7 @@ namespace Core.Domain.Entities
 
         public void MarkAsUpdated()
         {
-            UpdatedAt = DateTime.Now;
+            UpdatedAt = DateTime.UtcNow;
         }
 
         public void MarkAsDeleted()

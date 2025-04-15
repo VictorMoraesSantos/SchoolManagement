@@ -11,7 +11,6 @@ namespace Academic.Application.Mappers
                 department.Id,
                 department.CreatedAt,
                 department.UpdatedAt,
-                department.IsDeleted,
                 department.Code,
                 department.Name,
                 department.Courses.Select(c => c.ToSimpleResponse()).ToList(),
@@ -26,10 +25,8 @@ namespace Academic.Application.Mappers
                 department.Id,
                 department.CreatedAt,
                 department.UpdatedAt,
-                department.IsDeleted,
                 department.Code,
-                department.Name,
-                department.TeachersId);
+                department.Name);
 
             return response;
         }

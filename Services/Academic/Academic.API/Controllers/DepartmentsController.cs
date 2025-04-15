@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Academic.API.Controllers
 {
-    public class DepartmentsController : ApiController
+    public class DepartmentsController : BaseController
     {
         private readonly IMediator _mediator;
 

@@ -8,6 +8,7 @@ namespace Academic.Domain.Entities
         public string Code { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
+
         public IReadOnlyCollection<Course> Courses => _courses.AsReadOnly();
         private readonly List<Course> _courses = new();
 
@@ -50,6 +51,9 @@ namespace Academic.Domain.Entities
                 throw new DomainException("Course already exists in this program.");
 
             _courses.Add(course);
+            MarkAsUpdated();
+
+            course.SetProgram(this);
         }
 
         public void RemoveCourse(Course course)
@@ -59,6 +63,8 @@ namespace Academic.Domain.Entities
 
             if (!_courses.Remove(course))
                 throw new DomainException("Course not found in this program.");
+         
+            MarkAsUpdated();
         }
     }
 }

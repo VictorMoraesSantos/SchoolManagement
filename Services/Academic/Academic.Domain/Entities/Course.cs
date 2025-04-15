@@ -11,22 +11,24 @@ namespace Academic.Domain.Entities
         public string Description { get; private set; }
         public int Credits { get; private set; }
         public int TeacherId { get; private set; }
-        public int DepartmentId { get; private set; }
-        public virtual Department Department { get; private set; }
+
+        public int? DepartmentId { get; private set; }
+        public Department Department { get; private set; }
+        public int? ProgramId { get; private set; }
+        public Program Program { get; private set; }
 
         public IReadOnlyCollection<int> StudentsId => _studentsId.AsReadOnly();
         private readonly List<int> _studentsId = new();
 
         protected Course() { }
 
-        public Course(string code, string name, string description, int credits, int teacherId, Department department)
+        public Course(string code, string name, string description, int credits, int teacherId)
         {
             SetCode(code);
             SetName(name);
             SetDescription(description);
             SetCredits(credits);
             AssignTeacher(teacherId);
-            SetDepartment(department);
         }
 
         public void SetCode(string code)
@@ -78,6 +80,7 @@ namespace Academic.Domain.Entities
                 throw new DomainException("Student is already enrolled in the course.");
 
             _studentsId.Add(studentId);
+            MarkAsUpdated();
         }
 
         public void RemoveStudent(int studentId)
@@ -86,6 +89,7 @@ namespace Academic.Domain.Entities
                 throw new DomainException("Student is not enrolled in the course.");
 
             _studentsId.Remove(studentId);
+            MarkAsUpdated();
         }
 
         public void SetDepartment(Department department)
@@ -95,6 +99,17 @@ namespace Academic.Domain.Entities
 
             Department = department;
             DepartmentId = department.Id;
+            MarkAsUpdated();
+        }
+
+        public void SetProgram(Program program)
+        {
+            if (program == null)
+                throw new DomainException("Program cannot be null.");
+
+            Program = program;
+            ProgramId = program.Id;
+            MarkAsUpdated();
         }
     }
 }

@@ -65,6 +65,9 @@ namespace Academic.Domain.Entities
                 throw new DomainException("A course with the same code is already assigned to this department.");
 
             _courses.Add(course);
+            MarkAsUpdated();
+
+            course.SetDepartment(this);
         }
 
         public void RemoveCourse(Course course)

@@ -37,7 +37,7 @@ namespace Academic.Infrastructure.Repositories
 
         public async Task<IEnumerable<Department?>> GetByName(string name, CancellationToken cancellationToken)
         {
-            IEnumerable<Department>? department = await _context.Departments
+            IEnumerable<Department?> department = await _context.Departments
                 .AsNoTracking()
                 .Include(d => d.Courses)
                 .Where(c => c.IsDeleted != true && c.Name.Contains(name.Trim().ToUpper()))

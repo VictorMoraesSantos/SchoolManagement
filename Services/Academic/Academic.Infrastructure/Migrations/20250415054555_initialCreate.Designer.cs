@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Academic.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250413183958_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250415054555_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace Academic.Infrastructure.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("integer");
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
@@ -174,15 +174,15 @@ namespace Academic.Infrastructure.Migrations
                 {
                     b.HasOne("Academic.Domain.Entities.Department", "Department")
                         .WithMany("Courses")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentId");
 
-                    b.HasOne("Academic.Domain.Entities.Program", null)
+                    b.HasOne("Academic.Domain.Entities.Program", "Program")
                         .WithMany("Courses")
                         .HasForeignKey("ProgramId");
 
                     b.Navigation("Department");
+
+                    b.Navigation("Program");
                 });
 
             modelBuilder.Entity("Core.Domain.Events.DomainEvent", b =>

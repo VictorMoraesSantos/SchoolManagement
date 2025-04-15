@@ -1,8 +1,6 @@
-﻿using Academic.Application.Responses.Course;
-
-namespace Academic.Application.Responses.Program
+﻿namespace Academic.Application.Responses.Program
 {
-    public class ProgramResponse
+    public class ProgramSimpleResponse
     {
         public int Id { get; init; }
         public DateTime CreatedAt { get; init; }
@@ -10,9 +8,8 @@ namespace Academic.Application.Responses.Program
         public string Code { get; init; }
         public string Name { get; init; }
         public string Description { get; init; }
-        public IReadOnlyCollection<CourseSimpleResponse> Courses { get; init; }
 
-        public ProgramResponse(int id, DateTime createdAt, DateTime? updatedAt, string code, string name, string description, IReadOnlyCollection<CourseSimpleResponse> courses)
+        public ProgramSimpleResponse(int id, DateTime createdAt, DateTime? updatedAt, string code, string name, string description)
         {
             Id = id;
             CreatedAt = createdAt;
@@ -20,7 +17,6 @@ namespace Academic.Application.Responses.Program
             Code = code;
             Name = name;
             Description = description;
-            Courses = courses;
         }
     }
 }

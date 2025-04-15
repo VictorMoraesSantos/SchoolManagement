@@ -1,4 +1,5 @@
 ﻿using Academic.Application.Courses.Commands;
+using Academic.Application.Exceptions;
 using Academic.Domain.Entities;
 using Academic.Domain.Repositories;
 using Core.Domain.Exceptions;
@@ -19,7 +20,7 @@ namespace Academic.Application.Courses.Handlers
         {
             Course? course = await _courseRepository.GetById(command.Id, cancellationToken);
             if (course == null)
-                throw new DomainException($"Course with ID {command.Id} not found.");
+                throw new CourseNotFoundException(command.Id);
 
             course.MarkAsDeleted();
             await _courseRepository.Update(course, cancellationToken);

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Academic.Application.Courses.Commands
 {
-    public class UpdateCourseCommand : IRequest<CourseResponse>
+    public class UpdateCourseCommand : IRequest<bool>
     {
         public int Id { get; init; }
         public string Code { get; init; }
@@ -11,11 +11,8 @@ namespace Academic.Application.Courses.Commands
         public string Description { get; init; }
         public int Credits { get; init; }
         public int TeacherId { get; init; }
-        public int DepartmentId { get; init; }
-        public int StudentId { get; init; }
 
-
-        public UpdateCourseCommand(int id, string code, string name, string description, int credits, int teacherId, int departmentId, int studentId)
+        public UpdateCourseCommand(int id, string code, string name, string description, int credits, int teacherId)
         {
             Id = id;
             Code = code;
@@ -23,8 +20,6 @@ namespace Academic.Application.Courses.Commands
             Description = description;
             Credits = credits;
             TeacherId = teacherId;
-            DepartmentId = departmentId;
-            StudentId = studentId;
         }
     }
 }

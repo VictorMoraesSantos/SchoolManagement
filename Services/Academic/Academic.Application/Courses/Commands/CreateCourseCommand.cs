@@ -10,10 +10,10 @@ namespace Academic.Application.Courses.Commands
         public string Description { get; init; }
         public int Credits { get; init; }
         public int TeacherId { get; init; }
-        public int DepartmentId { get; init; }
+        public int? DepartmentId { get; init; }
+        public int? ProgramId { get; init; }
 
-
-        public CreateCourseCommand(string code, string name, string description, int credits, int teacherId, int departmentId)
+        public CreateCourseCommand(string code, string name, string description, int credits, int teacherId, int? departmentId, int? programId)
         {
             Code = code;
             Name = name;
@@ -21,6 +21,7 @@ namespace Academic.Application.Courses.Commands
             Credits = credits;
             TeacherId = teacherId;
             DepartmentId = departmentId;
+            ProgramId = programId;
         }
     }
 }
