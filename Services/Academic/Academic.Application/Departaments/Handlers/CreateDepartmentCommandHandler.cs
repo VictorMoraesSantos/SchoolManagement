@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Academic.Application.Departaments.Handlers
 {
-    public class CreateDepartmentCommandHandler : MediatR.IRequestHandler<CreateDepartmentCommand, DepartmentResponse>
+    public class CreateDepartmentCommandHandler : MediatR.IRequestHandler<CreateDepartmentCommand, DepartmentDto>
     {
         private readonly IDepartmentRepository _departmentRepository;
 
@@ -17,7 +17,7 @@ namespace Academic.Application.Departaments.Handlers
             _departmentRepository = departmentRepository;
         }
 
-        public async Task<DepartmentResponse> Handle(CreateDepartmentCommand command, CancellationToken cancellationToken)
+        public async Task<DepartmentDto> Handle(CreateDepartmentCommand command, CancellationToken cancellationToken)
         {
             Department? departmentExsists = await _departmentRepository.GetByCode(command.Code, cancellationToken);
             if (departmentExsists != null)

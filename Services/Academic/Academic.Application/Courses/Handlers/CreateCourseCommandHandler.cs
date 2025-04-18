@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Academic.Application.Courses.Handlers
 {
-    public class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, CourseResponse>
+    public class CreateCourseCommandHandler : IRequestHandler<CreateCourseCommand, CourseDto>
     {
         private readonly ICourseRepository _courseRepository;
 
@@ -17,7 +17,7 @@ namespace Academic.Application.Courses.Handlers
             _courseRepository = courseRepository;
         }
 
-        public async Task<CourseResponse> Handle(CreateCourseCommand command, CancellationToken cancellationToken)
+        public async Task<CourseDto> Handle(CreateCourseCommand command, CancellationToken cancellationToken)
         {
             Course? courseExists = await _courseRepository.GetByCode(command.Code, cancellationToken);
             if (courseExists != null)

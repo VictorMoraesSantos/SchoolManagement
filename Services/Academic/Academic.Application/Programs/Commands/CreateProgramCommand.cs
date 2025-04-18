@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Academic.Application.Programs.Commands
 {
-    public class CreateProgramCommand : IRequest<ProgramResponse>
+    public class CreateProgramCommand : IRequest<ProgramDTO>
     {
         public string Code { get; init; }
         public string Name { get; init; }

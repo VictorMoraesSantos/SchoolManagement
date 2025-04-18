@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Academic.Application.Programs.Queries
 {
-    public class GetProgramByCourseQuery : IRequest<ProgramResponse>
+    public class GetProgramByCourseQuery : IRequest<ProgramDTO>
     {
         public int CourseId { get; set; }
 

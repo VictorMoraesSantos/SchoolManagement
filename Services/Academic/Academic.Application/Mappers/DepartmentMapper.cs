@@ -5,9 +5,9 @@ namespace Academic.Application.Mappers
 {
     public static class DepartmentMapper
     {
-        public static DepartmentResponse ToResponse(this Department department)
+        public static DepartmentDto ToResponse(this Department department)
         {
-            DepartmentResponse response = new DepartmentResponse(
+            DepartmentDto response = new DepartmentDto(
                 department.Id,
                 department.CreatedAt,
                 department.UpdatedAt,
@@ -19,9 +19,9 @@ namespace Academic.Application.Mappers
             return response;
         }
 
-        public static DepartmentSimpleResponse ToSimpleResponse(this Department department)
+        public static DepartmentSimpleDTO ToSimpleResponse(this Department department)
         {
-            DepartmentSimpleResponse response = new DepartmentSimpleResponse(
+            DepartmentSimpleDTO response = new DepartmentSimpleDTO(
                 department.Id,
                 department.CreatedAt,
                 department.UpdatedAt,

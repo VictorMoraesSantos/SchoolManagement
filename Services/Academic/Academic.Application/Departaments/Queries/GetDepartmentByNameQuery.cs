@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Academic.Application.Departaments.Queries
 {
-    public class GetDepartmentByNameQuery : IRequest<IEnumerable<DepartmentResponse>>
+    public class GetDepartmentByNameQuery : IRequest<IEnumerable<DepartmentDto>>
     {
         public string Name { get; set; }
 

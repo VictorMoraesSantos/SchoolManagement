@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Academic.Application.Programs.Queries
 {
-    public class GetProgramsQuery : IRequest<IEnumerable<ProgramResponse>>
+    public class GetProgramsQuery : IRequest<IEnumerable<ProgramDTO>>
     {
         public GetProgramsQuery()
         {

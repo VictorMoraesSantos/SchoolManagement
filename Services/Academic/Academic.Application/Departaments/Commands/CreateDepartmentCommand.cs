@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Academic.Application.Departaments.Commands
 {
-    public class CreateDepartmentCommand : IRequest<DepartmentResponse>
+    public class CreateDepartmentCommand : IRequest<DepartmentDto>
     {
         public string Code { get; init; }
         public string Name { get; init; }

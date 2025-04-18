@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Academic.Application.Programs.Handlers
 {
-    public class GetProgramsQueryHandler : IRequestHandler<GetProgramsQuery, IEnumerable<ProgramResponse>>
+    public class GetProgramsQueryHandler : IRequestHandler<GetProgramsQuery, IEnumerable<ProgramDTO>>
     {
         private readonly IProgramRepository _programRepository;
 
@@ -16,11 +16,11 @@ namespace Academic.Application.Programs.Handlers
             _programRepository = programRepository;
         }
 
-        public async Task<IEnumerable<ProgramResponse>> Handle(GetProgramsQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ProgramDTO>> Handle(GetProgramsQuery query, CancellationToken cancellationToken)
         {
             IEnumerable<Program> programs = await _programRepository.GetAll(cancellationToken);
 
-            IEnumerable<ProgramResponse> programsResponse = programs.Select(ProgramMapper.ToResponse);
+            IEnumerable<ProgramDTO> programsResponse = programs.Select(ProgramMapper.ToResponse);
 
             return programsResponse;
         }

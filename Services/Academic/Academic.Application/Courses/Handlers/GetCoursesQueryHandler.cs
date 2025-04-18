@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Academic.Application.Courses.Handlers
 {
-    public class GetCoursesQueryHandler : IRequestHandler<GetCoursesQuery, IEnumerable<CourseResponse>>
+    public class GetCoursesQueryHandler : IRequestHandler<GetCoursesQuery, IEnumerable<CourseDto>>
     {
         private readonly ICourseRepository _courseRepository;
 
@@ -16,10 +16,10 @@ namespace Academic.Application.Courses.Handlers
             _courseRepository = courseRepository;
         }
 
-        public async Task<IEnumerable<CourseResponse>> Handle(GetCoursesQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CourseDto>> Handle(GetCoursesQuery request, CancellationToken cancellationToken)
         {
             IEnumerable<Course> courses = await _courseRepository.GetAll(cancellationToken);
-            IEnumerable<CourseResponse> coursesResponse = courses.Select(CourseMapper.ToResponse);
+            IEnumerable<CourseDto> coursesResponse = courses.Select(CourseMapper.ToResponse);
             return coursesResponse;
         }
     }

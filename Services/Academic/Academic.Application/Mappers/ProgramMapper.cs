@@ -5,9 +5,9 @@ namespace Academic.Application.Mappers
 {
     public static class ProgramMapper
     {
-        public static ProgramResponse ToResponse(this Program program)
+        public static ProgramDTO ToResponse(this Program program)
         {
-            return new ProgramResponse(
+            return new ProgramDTO(
                 program.Id,
                 program.CreatedAt,
                 program.UpdatedAt,
@@ -17,9 +17,9 @@ namespace Academic.Application.Mappers
                 program.Courses.Select(c => c.ToSimpleResponse()).ToList()
             );
         }
-        public static ProgramSimpleResponse ToSimpleResponse(this Program program)
+        public static ProgramSimpleDTO ToSimpleResponse(this Program program)
         {
-            return new ProgramSimpleResponse(
+            return new ProgramSimpleDTO(
                 program.Id,
                 program.CreatedAt,
                 program.UpdatedAt,

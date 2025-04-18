@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Academic.Application.Departaments.Handlers
 {
-    public class GetDepartmentByCourseQueryHandler : MediatR.IRequestHandler<GetDepartmentByCourseQuery, DepartmentResponse>
+    public class GetDepartmentByCourseQueryHandler : MediatR.IRequestHandler<GetDepartmentByCourseQuery, DepartmentDto>
     {
         private readonly IDepartmentRepository _departmentRepository;
         private readonly ICourseRepository _courseRepository;
@@ -19,7 +19,7 @@ namespace Academic.Application.Departaments.Handlers
             _courseRepository = courseRepository;
         }
 
-        public async Task<DepartmentResponse> Handle(GetDepartmentByCourseQuery query, CancellationToken cancellationToken)
+        public async Task<DepartmentDto> Handle(GetDepartmentByCourseQuery query, CancellationToken cancellationToken)
         {
             Course? course = await _courseRepository.GetById(query.CourseId, cancellationToken);
             if (course == null)
@@ -29,7 +29,7 @@ namespace Academic.Application.Departaments.Handlers
             if (department == null)
                 throw new DepartmentNotFoundException(course.Id);
 
-            DepartmentResponse departmentResponse = DepartmentMapper.ToResponse(department);
+            DepartmentDto departmentResponse = DepartmentMapper.ToResponse(department);
 
             return departmentResponse;
         }

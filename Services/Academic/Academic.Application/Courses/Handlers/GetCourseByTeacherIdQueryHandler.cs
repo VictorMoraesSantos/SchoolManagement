@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Academic.Application.Courses.Handlers
 {
-    public class GetCourseByTeacherIdQueryHandler : IRequestHandler<GetCourseByTeacherIdQuery, IEnumerable<CourseResponse>>
+    public class GetCourseByTeacherIdQueryHandler : IRequestHandler<GetCourseByTeacherIdQuery, IEnumerable<CourseDto>>
     {
         private readonly ICourseRepository _courseRepository;
 
@@ -17,13 +17,13 @@ namespace Academic.Application.Courses.Handlers
             _courseRepository = courseRepository;
         }
 
-        public async Task<IEnumerable<CourseResponse>> Handle(GetCourseByTeacherIdQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CourseDto>> Handle(GetCourseByTeacherIdQuery query, CancellationToken cancellationToken)
         {
             IEnumerable<Course> courses = await _courseRepository.GetByTeacherId(query.Id, cancellationToken);
             if (courses == null)
                 throw new CourseNotFoundException(query.Id);
 
-            IEnumerable<CourseResponse> coursesResponse = courses.Select(CourseMapper.ToResponse);
+            IEnumerable<CourseDto> coursesResponse = courses.Select(CourseMapper.ToResponse);
 
             return coursesResponse;
         }

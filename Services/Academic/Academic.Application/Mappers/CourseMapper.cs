@@ -5,9 +5,9 @@ namespace Academic.Application.Mappers
 {
     public static class CourseMapper
     {
-        public static CourseResponse ToResponse(this Course course)
+        public static CourseDto ToResponse(this Course course)
         {
-            CourseResponse response = new CourseResponse(
+            CourseDto response = new CourseDto(
                 course.Id,
                 course.CreatedAt,
                 course.UpdatedAt,
@@ -22,9 +22,9 @@ namespace Academic.Application.Mappers
             return response;
         }
 
-        public static CourseSimpleResponse ToSimpleResponse(this Course course)
+        public static CourseSimpleDto ToSimpleResponse(this Course course)
         {
-            CourseSimpleResponse response = new CourseSimpleResponse(
+            CourseSimpleDto response = new CourseSimpleDto(
                 course.Id,
                 course.CreatedAt,
                 course.UpdatedAt,

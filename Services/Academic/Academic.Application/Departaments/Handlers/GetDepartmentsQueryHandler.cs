@@ -7,7 +7,7 @@ using MediatR;
 
 namespace Academic.Application.Departaments.Handlers
 {
-    public class GetDepartmentsQueryHandler : MediatR.IRequestHandler<GetDepartmentsQuery, IEnumerable<DepartmentResponse>>
+    public class GetDepartmentsQueryHandler : MediatR.IRequestHandler<GetDepartmentsQuery, IEnumerable<DepartmentDto>>
     {
         private readonly IDepartmentRepository _departmentRepository;
 
@@ -16,11 +16,11 @@ namespace Academic.Application.Departaments.Handlers
             _departmentRepository = departmentRepository;
         }
 
-        public async Task<IEnumerable<DepartmentResponse>> Handle(GetDepartmentsQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<DepartmentDto>> Handle(GetDepartmentsQuery query, CancellationToken cancellationToken)
         {
             IEnumerable<Department> departments = await _departmentRepository.GetAll(cancellationToken);
 
-            IEnumerable<DepartmentResponse> departmentResponses = departments.Select(DepartmentMapper.ToResponse);
+            IEnumerable<DepartmentDto> departmentResponses = departments.Select(DepartmentMapper.ToResponse);
 
             return departmentResponses;
         }

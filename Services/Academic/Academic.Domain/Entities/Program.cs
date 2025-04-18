@@ -23,48 +23,26 @@ namespace Academic.Domain.Entities
 
         public void SetCode(string code)
         {
-            if (string.IsNullOrWhiteSpace(code))
-                throw new DomainException("Program code cannot be empty.");
-
+            Validate(code);
             Code = code.Trim().ToUpper();
         }
 
         public void SetName(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new DomainException("Program name cannot be empty.");
-
+            Validate(name);
             Name = name.ToUpper();
         }
 
         public void SetDescription(string description)
         {
-            Description = description?.ToUpper();
+            Validate(description);
+            Description = description.ToUpper();
         }
 
-        public void AddCourse(Course course)
+        private void Validate(string value)
         {
-            if (course == null)
-                throw new DomainException("Course cannot be null.");
-
-            if (_courses.Any(c => c.Code == course.Code))
-                throw new DomainException("Course already exists in this program.");
-
-            _courses.Add(course);
-            MarkAsUpdated();
-
-            course.SetProgram(this);
-        }
-
-        public void RemoveCourse(Course course)
-        {
-            if (course == null)
-                throw new DomainException("Course cannot be null.");
-
-            if (!_courses.Remove(course))
-                throw new DomainException("Course not found in this program.");
-         
-            MarkAsUpdated();
+            if (string.IsNullOrWhiteSpace(value))
+                throw new DomainException($"Program {nameof(value)} cannot be empty.");
         }
     }
 }

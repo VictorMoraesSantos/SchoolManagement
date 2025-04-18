@@ -1,5 +1,6 @@
 ﻿using Academic.Application.Departaments.Commands;
 using Academic.Application.Departaments.Queries;
+using Academic.Application.Programs.Commands;
 using Academic.Application.Responses.Department;
 using BuildingBlocks.Results;
 using Core.API.Controllers;
@@ -18,58 +19,74 @@ namespace Academic.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<HttpResult<IEnumerable<DepartmentResponse>>>> GetAll(CancellationToken cancellationToken)
+        public async Task<ActionResult<HttpResult<IEnumerable<DepartmentDto>>>> GetAll(CancellationToken cancellationToken)
         {
             GetDepartmentsQuery query = new();
-            IEnumerable<DepartmentResponse> result = await _mediator.Send(query, cancellationToken);
-            return HttpResult<IEnumerable<DepartmentResponse>>.Ok(result);
+            IEnumerable<DepartmentDto> result = await _mediator.Send(query, cancellationToken);
+            return HttpResult<IEnumerable<DepartmentDto>>.Ok(result);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<HttpResult<DepartmentResponse>>> GetById(int id, CancellationToken cancellationToken)
+        public async Task<ActionResult<HttpResult<DepartmentDto>>> GetById(int id, CancellationToken cancellationToken)
         {
             GetDepartmentByIdQuery query = new(id);
-            DepartmentResponse result = await _mediator.Send(query, cancellationToken);
-            return HttpResult<DepartmentResponse>.Ok(result);
+            DepartmentDto result = await _mediator.Send(query, cancellationToken);
+            return HttpResult<DepartmentDto>.Ok(result);
         }
 
         [HttpGet("code/{code}")]
-        public async Task<ActionResult<HttpResult<DepartmentResponse>>> GetByCode(string code, CancellationToken cancellationToken)
+        public async Task<ActionResult<HttpResult<DepartmentDto>>> GetByCode(string code, CancellationToken cancellationToken)
         {
             GetDepartmentByCodeQuery query = new(code);
-            DepartmentResponse result = await _mediator.Send(query, cancellationToken);
-            return HttpResult<DepartmentResponse>.Ok(result);
+            DepartmentDto result = await _mediator.Send(query, cancellationToken);
+            return HttpResult<DepartmentDto>.Ok(result);
         }
 
         [HttpGet("name/{name}")]
-        public async Task<ActionResult<HttpResult<IEnumerable<DepartmentResponse>>>> GetByName(string name, CancellationToken cancellationToken)
+        public async Task<ActionResult<HttpResult<IEnumerable<DepartmentDto>>>> GetByName(string name, CancellationToken cancellationToken)
         {
             GetDepartmentByNameQuery query = new(name);
-            IEnumerable<DepartmentResponse> result = await _mediator.Send(query, cancellationToken);
-            return HttpResult<IEnumerable<DepartmentResponse>>.Ok(result);
+            IEnumerable<DepartmentDto> result = await _mediator.Send(query, cancellationToken);
+            return HttpResult<IEnumerable<DepartmentDto>>.Ok(result);
         }
 
         [HttpGet("teacher/{teacherId:int}")]
-        public async Task<ActionResult<HttpResult<DepartmentResponse>>> GetByTeacherId(int teacherId, CancellationToken cancellationToken)
+        public async Task<ActionResult<HttpResult<DepartmentDto>>> GetByTeacherId(int teacherId, CancellationToken cancellationToken)
         {
             GetDepartmentByTeacherIdQuery query = new(teacherId);
-            DepartmentResponse result = await _mediator.Send(query, cancellationToken);
-            return HttpResult<DepartmentResponse>.Ok(result);
+            DepartmentDto result = await _mediator.Send(query, cancellationToken);
+            return HttpResult<DepartmentDto>.Ok(result);
         }
 
         [HttpGet("course/{courseId:int}")]
-        public async Task<ActionResult<HttpResult<DepartmentResponse>>> GetByCourse(int courseId, CancellationToken cancellationToken)
+        public async Task<ActionResult<HttpResult<DepartmentDto>>> GetByCourse(int courseId, CancellationToken cancellationToken)
         {
             GetDepartmentByCourseQuery query = new(courseId);
-            DepartmentResponse result = await _mediator.Send(query, cancellationToken);
-            return HttpResult<DepartmentResponse>.Ok(result);
+            DepartmentDto result = await _mediator.Send(query, cancellationToken);
+            return HttpResult<DepartmentDto>.Ok(result);
+        }
+
+        [HttpPost("{departmentId:int}/teachers")]
+        public async Task<ActionResult<HttpResult<bool>>> AddTeacherToDepartment(int departmentId, [FromBody] AssignTeacherToDepartmentCommand command, CancellationToken cancellationToken)
+        {
+            AssignTeacherToDepartmentCommand addCourseCommand = new(departmentId, command.TeacherId);
+            bool result = await _mediator.Send(addCourseCommand, cancellationToken);
+            return HttpResult<bool>.Updated(result);
+        }
+
+        [HttpPost("{departmentId:int}/teachers/{teacherId:int}")]
+        public async Task<ActionResult<HttpResult<bool>>> RemoveTeacherFromDepartment(int departmentId, int teacherId, CancellationToken cancellationToken)
+        {
+            RemoveTeacherFromDepartmentCommand command = new(departmentId, teacherId);
+            bool result = await _mediator.Send(command, cancellationToken);
+            return HttpResult<bool>.Updated(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<HttpResult<DepartmentResponse>>> Create([FromBody] CreateDepartmentCommand command, CancellationToken cancellationToken)
+        public async Task<ActionResult<HttpResult<DepartmentDto>>> Create([FromBody] CreateDepartmentCommand command, CancellationToken cancellationToken)
         {
-            DepartmentResponse result = await _mediator.Send(command, cancellationToken);
-            return HttpResult<DepartmentResponse>.Created(result);
+            DepartmentDto result = await _mediator.Send(command, cancellationToken);
+            return HttpResult<DepartmentDto>.Created(result);
         }
 
         [HttpPost("batch")]
@@ -77,17 +94,17 @@ namespace Academic.API.Controllers
         {
             foreach (CreateDepartmentCommand command in commands)
             {
-                DepartmentResponse _ = await _mediator.Send(command, cancellationToken);
+                DepartmentDto _ = await _mediator.Send(command, cancellationToken);
             }
 
             return HttpResult.Created();
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<HttpResult<DepartmentResponse>>> Update(int id, [FromBody] UpdateDepartmentCommand command, CancellationToken cancellationToken)
+        public async Task<ActionResult<HttpResult<DepartmentDto>>> Update(int id, [FromBody] UpdateDepartmentCommand command, CancellationToken cancellationToken)
         {
-            DepartmentResponse result = await _mediator.Send(command, cancellationToken);
-            return HttpResult<DepartmentResponse>.Updated(result);
+            DepartmentDto result = await _mediator.Send(command, cancellationToken);
+            return HttpResult<DepartmentDto>.Updated(result);
         }
 
         [HttpDelete("{id:int}")]

@@ -23,17 +23,13 @@ namespace Academic.Domain.Entities
 
         public void SetCode(string code)
         {
-            if (string.IsNullOrWhiteSpace(code))
-                throw new DomainException("Department code cannot be empty.");
-
+            StringValidate(code);
             Code = code.Trim().ToUpper();
         }
 
         public void SetName(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new DomainException("Department name cannot be empty.");
-
+            StringValidate(name);
             Name = name.ToUpper();
         }
 
@@ -56,27 +52,10 @@ namespace Academic.Domain.Entities
             _teachersId.Remove(teacherId);
         }
 
-        public void AddCourse(Course course)
+        private void StringValidate(string value)
         {
-            if (course == null)
-                throw new DomainException("Course cannot be null.");
-
-            if (_courses.Any(c => c.Code == course.Code.Trim().ToUpper()))
-                throw new DomainException("A course with the same code is already assigned to this department.");
-
-            _courses.Add(course);
-            MarkAsUpdated();
-
-            course.SetDepartment(this);
-        }
-
-        public void RemoveCourse(Course course)
-        {
-            if (course == null)
-                throw new DomainException("Course cannot be null.");
-
-            if (!_courses.Remove(course))
-                throw new DomainException("Course not found in this program.");
+            if (string.IsNullOrWhiteSpace(value))
+                throw new DomainException($"Department {nameof(value)} cannot be empty.");
         }
     }
 }

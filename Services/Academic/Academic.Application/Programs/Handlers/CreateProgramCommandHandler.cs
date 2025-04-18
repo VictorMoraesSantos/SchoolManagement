@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Academic.Application.Programs.Handlers
 {
-    public class CreateProgramCommandHandler : IRequestHandler<CreateProgramCommand, ProgramResponse>
+    public class CreateProgramCommandHandler : IRequestHandler<CreateProgramCommand, ProgramDTO>
     {
         private readonly IProgramRepository _programRepository;
 
@@ -17,7 +17,7 @@ namespace Academic.Application.Programs.Handlers
             _programRepository = programRepository;
         }
 
-        public async Task<ProgramResponse> Handle(CreateProgramCommand command, CancellationToken cancellationToken)
+        public async Task<ProgramDTO> Handle(CreateProgramCommand command, CancellationToken cancellationToken)
         {
             Program? programExists = await _programRepository.GetByCode(command.Code, cancellationToken);
             if (programExists != null)

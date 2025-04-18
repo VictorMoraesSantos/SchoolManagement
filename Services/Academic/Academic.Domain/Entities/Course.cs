@@ -102,6 +102,13 @@ namespace Academic.Domain.Entities
             MarkAsUpdated();
         }
 
+        public void RemoveDepartment()
+        {
+            Department = null;
+            DepartmentId = null;
+            MarkAsUpdated();
+        }
+
         public void SetProgram(Program program)
         {
             if (program == null)
@@ -109,6 +116,13 @@ namespace Academic.Domain.Entities
 
             Program = program;
             ProgramId = program.Id;
+            MarkAsUpdated();
+        }
+
+        public void RemoveProgram()
+        {
+            Program = null;
+            ProgramId = null;
             MarkAsUpdated();
         }
     }

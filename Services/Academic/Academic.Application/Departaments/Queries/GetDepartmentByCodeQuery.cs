@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Academic.Application.Departaments.Queries
 {
-    public class GetDepartmentByCodeQuery : IRequest<DepartmentResponse>
+    public class GetDepartmentByCodeQuery : IRequest<DepartmentDto>
     {
         public string Code { get; set; }
 
